@@ -48,6 +48,7 @@ a {
     --line-height-base: 1.5;
     --line-height-big: 1.8;
     --section-header-align: center;
+    --section-tagline-transform: uppercase;
 }
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-family-title);
