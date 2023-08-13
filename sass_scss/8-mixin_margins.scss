@@ -1,12 +1,12 @@
-@mixin marginLR($left, $right) {
+@mixin setMargins($left, $right) {
     margin-left: $left;
     margin-right: $right;
 }
 
 body {
-    @include marginLR(10px, 10px);
+    @include setMargins(10px, 10px);
 }
 
 div {
-    @include marginLR(15px, 15px);
+    @include setMargins(15px, 15px);
 }
