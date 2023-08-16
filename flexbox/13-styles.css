@@ -782,7 +782,7 @@ ul.row {
   display: inline;
 }
 
-.tag-list li:after {
+.tag-list li::after {
   content: ", ";
 }
 
