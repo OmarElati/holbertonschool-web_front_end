@@ -670,6 +670,10 @@ ul.row {
   opacity: 0;
 }
 
+.card-work:hover .card-title a {
+  opacity: 1;
+}
+
 .card-work:hover .card-title a:focus {
   opacity: 1;
   height: 100%;
