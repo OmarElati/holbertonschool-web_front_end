@@ -674,11 +674,12 @@ ul.row {
   opacity: 1;
 }
 
-.card-work:hover .card-title a:focus {
+.card-work .card-title a:focus {
   opacity: 1;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
 }
+
 .card-work .card-title a::after {
   position: absolute;
   top: 0;
