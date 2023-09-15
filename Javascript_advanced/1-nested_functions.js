@@ -2,18 +2,18 @@ let globalVariable = "Welcome"
 
 function outer() {
 
-    alert(globalVariable);
-    let course = " Holberton";
+  alert(globalVariable);
+  let course = " Holberton";
 
-    function inner() {
-        alert(globalVariable + " " + course);
-        let exclamation = "!"
+  function inner() {
+      alert(globalVariable + " " + course);
+      let exclamation = "!"
 
-        function inception() {
-            alert(globalVariable + " " + course + exclamation);
-        };
-        inception();
-    };
-    inner(); 
+      function inception() {
+          alert(globalVariable + " " + course + exclamation);
+      };
+      inception();
+  };
+  inner(); 
 };
 outer();
