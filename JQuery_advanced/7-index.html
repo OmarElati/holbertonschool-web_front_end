@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 7</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <script type="application/javascript">
+        function createSearchForm() {
+            const form = $('<form>');
+
+            const input = $('<input>').attr('type', 'text');
+
+            const submit = $('<input>').attr('type', 'submit').val('Search');
+
+            const ul = $('<ul>');
+
+            form.submit(function (e) {
+                e.preventDefault();
+                queryWikipedia(input.val());
+            });
+
+            form.append(input, submit, ul);
+            $('body').append(form);
+        }
+
+        function addNewArticle(id, title, snippet) {
+            const li = $('<li>');
+
+            const p1 = $('<p>');
+            p1.append($('<span>').text('id - '), $('<b>').text(title));
+
+            const p2 = $('<p>').html(snippet);
+
+            li.append(p1, p2);
+
+            $('ul').append(li);
+        }
+
+        function queryWikipedia(search) {
+            const requestData = {
+                action: 'query',
+                list: 'search',
+                srsearch: search,
+                format: 'json',
+            };
+
+            $.ajax({
+                url: 'https://en.wikipedia.org/w/api.php',
+                data: requestData,
+                dataType: 'jsonp',
+                success: function (data) {
+                    const searchResults = data.query.search;
+                    searchResults.forEach(function (result) {
+                        addNewArticle(result.pageid, result.title, result.snippet);
+                    });
+                },
+                error: function () {
+                    console.log('Error fetching data from Wikipedia API.');
+                },
+            });
+        }
+
+        createSearchForm();
+    </script>
+</body>
+
+</html>
