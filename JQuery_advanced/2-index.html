@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+        <title>Task 2</title>
+        <script type="application/javascript" src='https://code.jquery.com/jquery-3.5.1.slim.min.js'>
+        </script>
+    </head>
+    <body>
+    </body>
+    <script type="application/javascript">
+        function createFamilyTree() {
+            let rows = [
+                ['Guillaume', 'Salva'],
+                ['Paulette', 'Salva'],
+                ['Antoine', 'Salva']
+            ];
+            let table = '<table><thead><tr><th>Firstname</th><th>Lastname</th></tr></thead><tbody>';
+            for (let i = 0; i < rows.length; i++) {
+                table += `<tr><td>${rows[i][0]}</td><td>${rows[i][1]}</td></tr>`;
+            }
+            table += '</tbody></table>';
+            $('body').append(table);
+        }
+        createFamilyTree();
+    </script>
+</html>
