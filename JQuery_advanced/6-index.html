@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 6</title>
+    <style>
+        .remove-cell {
+            background-color: orange;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+</head>
+
+<body>
+    <script type="application/javascript">
+        function createFamilyTree() {
+            const table = $('<table>');
+            const thead = $('<thead>');
+            const headerRow = $('<tr>');
+            const firstnameHeader = $('<th>').text('Firstname');
+            const lastnameHeader = $('<th>').text('Lastname');
+            headerRow.append(firstnameHeader, lastnameHeader);
+            thead.append(headerRow);
+            table.append(thead);
+
+            const tbody = $('<tbody>');
+            table.append(tbody);
+
+            $('body').append(table);
+        }
+
+        function addNewMember(firstName, lastName, position) {
+            const newRow = $('<tr>');
+            const firstnameCell = $('<td>').text(firstName);
+            const lastnameCell = $('<td>').text(lastName);
+            const removeCell = $('<td>').text('(x)').addClass('remove-cell');
+
+            removeCell.click(function () {
+                newRow.remove();
+            });
+
+            newRow.append(firstnameCell, lastnameCell, removeCell);
+
+            if (position === 'before') {
+                newRow.insertBefore($('tbody tr:first'));
+            } else {
+                newRow.appendTo($('tbody'));
+            }
+        }
+
+        function createForm() {
+            const form = $('<form>');
+
+            const input1 = $('<input>').attr('type', 'text').attr('placeholder', 'First Name');
+            const input2 = $('<input>').attr('type', 'text').attr('placeholder', 'Last Name');
+
+            const select = $('<select>');
+            const option1 = $('<option>').attr('value', 'before').text('Before');
+            const option2 = $('<option>').attr('value', 'after').text('After');
+            select.append(option1, option2);
+
+            const submit = $('<input>').attr('type', 'submit').val('Add Member');
+
+            form.submit(function (e) {
+                e.preventDefault();
+                addNewMember(input1.val(), input2.val(), select.val());
+                input1.val('');
+                input2.val('');
+            });
+
+            form.append(input1, input2, select, submit);
+            $('table').before(form);
+        }
+
+        createFamilyTree();
+
+        createForm();
+    </script>
+</body>
+
+</html>
