@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 12</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <script type="application/javascript">
+        function addPostRow(data) {
+            const paragraph = $('<p>').attr('id', `row-${data.id}`);
+            const deleteSpan = $('<span>').text('(delete)').click(function () {
+                deletePost(data.id);
+            });
+            const postSpan = $('<span>').text(`Post created with id ${data.id}, title: ${data.title}, author: ${data.author}`);
+            paragraph.append(deleteSpan, ' ', postSpan);
+            $('body').append(paragraph);
+        }
+
+        function deletePost(id) {
+            $.ajax({
+                url: `http://localhost:3000/posts/${id}`,
+                type: 'DELETE',
+                success: function () {
+                    $(`#row-${id}`).remove();
+                },
+                error: function () {
+                    alert('Post was not deleted');
+                }
+            });
+        }
+
+        function listPosts() {
+            $.get('http://localhost:3000/posts', function (data, status) {
+                if (status === 'success') {
+                    data.forEach(function (post) {
+                        addPostRow(post);
+                    });
+                } else {
+                    alert('Server Error');
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            listPosts();
+        });
+    </script>
+</body>
+
+</html>
