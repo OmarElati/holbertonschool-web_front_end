@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task 11</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <script type="application/javascript">
+        function addPostRow(data) {
+            const paragraph = $('<p>');
+            const span = $('<span>').text(`Post created with id ${data.id}, title: ${data.title}, author: ${data.author}`);
+            paragraph.append(span);
+            $('body').append(paragraph);
+        }
+
+        function listPosts() {
+            $.get('http://localhost:3000/posts', function (data, status) {
+                if (status === 'success') {
+                    data.forEach(function (post) {
+                        addPostRow(post);
+                    });
+                } else {
+                    alert('Server Error');
+                }
+            });
+        }
+
+        function buildForm() {
+            const form = $('<form>');
+            const authorDiv = $('<div>');
+            const authorLabel = $('<label>').attr('for', 'author').text('Author');
+            const authorInput = $('<input>').attr({ 'type': 'text', 'id': 'author' });
+            const titleDiv = $('<div>');
+            const titleLabel = $('<label>').attr('for', 'title').text('Title');
+            const titleTextarea = $('<textarea>').attr({ 'id': 'title' });
+            const submitInput = $('<input>').attr({ 'type': 'submit' });
+            authorDiv.append(authorLabel, authorInput);
+            titleDiv.append(titleLabel, titleTextarea);
+            form.append(authorDiv, titleDiv, submitInput);
+            $('body').append(form);
+
+            form.keypress(function (e) {
+                if (e.which === 13) {
+                    e.preventDefault();
+                    sendForm();
+                }
+            });
+
+            authorLabel.click(function () {
+                authorInput.select();
+            });
+        }
+
+        function sendForm() {
+            $('form').after('<p>About to send the query to the API</p>');
+
+            const data = {
+                title: $('#title').val(),
+                author: $('#author').val()
+            };
+
+            $.post('http://localhost:3000/posts', data, function (responseData, status) {
+                if (status === 'success') {
+                    addPostRow(responseData);
+                } else {
+                    alert('Error sending the POST query');
+                }
+                $('p:contains("About to send the query to the API")').remove();
+            });
+        }
+
+        $(document).ready(function () {
+            listPosts();
+            buildForm();
+        });
+    </script>
+</body>
+
+</html>
